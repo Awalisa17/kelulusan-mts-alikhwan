@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan MTs Al-Ikhwan Cihea 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Custom styles and Tailwind overrides */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        h1, h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Poppins Bold */
+        }
+        .text-content {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600; /* Montserrat Semi Bold */
+        }
+        /* Custom colors */
+        .bg-primary-blue { background-color: #3B82F6; } /* A shade of blue */
+        .text-primary-blue { color: #3B82F6; }
+        .bg-light-blue { background-color: #BFDBFE; } /* Light blue */
+        .text-light-blue { color: #BFDBFE; }
+        .bg-gold { background-color: #FFD700; } /* Gold */
+        .text-gold { color: #FFD700; }
+        .bg-white-custom { background-color: #FFFFFF; } /* White */
+
+        /* Page transition animation */
+        .page-section {
+            transition: opacity 0.5s ease-in-out;
+        }
+        .hidden-page {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive background image */
+        .bg-school-image {
+            background-image: url('https://iili.io/FHJSBu2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Custom shape for header */
+        .header-shape {
+            background-color: #3B82F6; /* Primary blue */
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            padding: 1rem 0;
+        }
+
+        /* Custom modal for alerts */
+        .custom-modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .custom-modal-content button {
+            background-color: #3B82F6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <div id="customAlertModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p id="customAlertMessage" class="text-lg font-semibold text-gray-800"></p>
+            <button onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <section id="homePage" class="page-section bg-school-image flex-grow flex flex-col items-center justify-center text-center p-4">
+        <div class="header-shape w-full p-4 rounded-b-3xl shadow-lg flex items-center justify-center md:justify-start flex-col md:flex-row">
+            <img src="https://iili.io/F9QKYve.jpg" alt="Logo MTs Al-Ikhwan Cihea" class="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-white-custom object-cover shadow-md mb-4 md:mb-0 md:mr-6">
+            <div class="text-white text-left">
+                <h2 class="text-2xl md:text-3xl font-bold">MTs Al-Ikhwan Cihea</h2>
+                <p class="text-lg md:text-xl text-content">Cerdas, Kreatif dan Berakhlak Mulia</p>
+            </div>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center p-4">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl text-gold drop-shadow-lg leading-tight mt-8 md:mt-0">
+                Pengumuman Kelulusan<br>Siswa/i Kelas 9 MTs Al-Ikhwan Cihea Tahun 2025
+            </h1>
+            <button id="nextToSpeechBtn" class="mt-12 px-8 py-4 bg-primary-blue text-white text-xl md:text-2xl font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
+                Lihat Pengumuman
+            </button>
+        </div>
+
+        <footer class="w-full text-center text-white text-sm md:text-base p-4 bg-primary-blue bg-opacity-70 rounded-t-lg">
+            Kelulusan MTs Al-Ikhwan Cihea @2025
+        </footer>
+    </section>
+
+    <section id="speechPage" class="page-section hidden-page bg-white-custom flex-grow flex flex-col items-center justify-between p-4">
+        <div class="flex-grow flex flex-col items-center justify-center text-center max-w-4xl mx-auto p-4 md:p-8">
+            <img src="https://iili.io/F9QJ98G.jpg" alt="Foto Kepala Sekolah Nurjaman, S.Pd.I" class="h-40 w-40 md:h-48 md:w-48 rounded-full object-cover border-4 border-primary-blue shadow-lg mb-6">
+            <h2 class="text-3xl md:text-4xl text-primary-blue mb-4">Nurjaman, S.Pd.I</h2>
+            <p class="text-lg md:text-xl text-gray-700 mb-8 text-content leading-relaxed">
+                Assalamualaikum Warahmatullahi Wabarakatuh.
+                <br><br>
+                Anak-anakku siswa/i kelas 9 MTs Al-Ikhwan Cihea yang Bapak banggakan,
+                <br><br>
+                Dengan rasa syukur yang mendalam, Bapak ucapkan selamat atas kelulusan kalian! Ini adalah hasil dari kerja keras, dedikasi, dan doa yang tiada henti. Kalian telah menyelesaikan satu babak penting dalam perjalanan pendidikan. Ingatlah, kelulusan ini bukanlah akhir, melainkan awal dari petualangan baru yang penuh tantangan dan peluang.
+                <br><br>
+                Teruslah belajar, berinovasi, dan berkarya. Jadikan setiap pengalaman sebagai bekal untuk melangkah maju. Raihlah cita-cita setinggi mungkin, dan jangan pernah berhenti mengembangkan diri. Kami yakin, kalian akan menjadi generasi penerus bangsa yang membanggakan.
+                <br><br>
+                Semoga Allah SWT senantiasa memberkahi setiap langkah kalian.
+                <br><br>
+                Wassalamualaikum Warahmatullahi Wabarakatuh.
+                <br>
+                Hormat kami,
+                <br>
+                Nurjaman, S.Pd.I
+            </p>
+            <button id="nextToResultsBtn" class="px-8 py-4 bg-primary-blue text-white text-xl md:text-2xl font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
+                Selanjutnya
+            </button>
+        </div>
+        <footer class="w-full text-center text-gray-600 text-sm md:text-base p-4 bg-light-blue rounded-t-lg">
+            Kelulusan MTs Al-Ikhwan Cihea @2025
+        </footer>
+    </section>
+
+    <section id="resultsPage" class="page-section hidden-page bg-light-blue flex-grow flex flex-col items-center justify-between p-4">
+        <div class="flex-grow flex flex-col items-center justify-center w-full max-w-2xl mx-auto p-4 md:p-8">
+            <h2 class="text-3xl md:text-4xl text-primary-blue mb-6 text-center">Cek Hasil Kelulusanmu!</h2>
+            <div class="w-full bg-white-custom p-6 rounded-lg shadow-xl flex flex-col items-center">
+                <label for="nisnInput" class="text-lg md:text-xl text-gray-700 mb-3 text-content">Masukkan NISN kamu:</label>
+                <input type="text" id="nisnInput" placeholder="Contoh: 0093117196" class="w-full p-3 border-2 border-primary-blue rounded-lg mb-6 text-lg focus:outline-none focus:ring-2 focus:ring-primary-blue-light">
+                <button id="checkResultBtn" class="px-8 py-4 bg-primary-blue text-white text-xl md:text-2xl font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
+                    Cek Hasil Kelulusan
+                </button>
+            </div>
+
+            <div id="resultCardContainer" class="hidden w-full mt-8 bg-gradient-to-br from-blue-100 via-white to-gold-100 p-6 rounded-lg shadow-xl border-2 border-gold relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center z-0">
+                    <div id="interactiveBalloon" class="text-6xl cursor-pointer opacity-0 transition-opacity duration-500 hover:scale-110 transform" style="color: #FFD700; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🎈</div>
+                </div>
+                <div class="relative z-10 text-center">
+                    <h3 id="studentName" class="text-3xl md:text-4xl text-primary-blue mb-2 font-bold"></h3>
+                    <p id="studentClass" class="text-xl md:text-2xl text-gray-700 mb-2 text-content"></p>
+                    <p id="studentStatus" class="text-2xl md:text-3xl font-bold mb-4"></p>
+                    <p id="celebrationMessage" class="text-lg md:text-xl text-gray-800 italic mb-4 text-content"></p>
+                    <p id="motivationMessage" class="text-base md:text-lg text-gray-600 text-content"></p>
+                </div>
+            </div>
+
+            <button id="backToHomeBtn" class="mt-8 px-6 py-3 bg-gray-500 text-white text-lg rounded-full shadow-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105">
+                Kembali ke Beranda
+            </button>
+        </div>
+        <footer class="w-full text-center text-gray-600 text-sm md:text-base p-4 bg-white-custom rounded-t-lg">
+            Kelulusan MTs Al-Ikhwan Cihea @2025
+        </footer>
+    </section>
+
+    <script>
+        // Data siswa
+        const studentsData = [
+            { name: "ALPA AULIA", class: "9-A", nisn: "0093117196", status: "LULUS" },
+            { name: "AMELLIA PUTRI", class: "9-A", nisn: "0101284254", status: "LULUS" },
+            { name: "AZHURA MARIFATBILAH", class: "9-A", nisn: "0096537293", status: "LULUS" },
+            { name: "BIMA ARBIANSAH", class: "9-A", nisn: "3090096136", status: "LULUS" },
+            { name: "DIAN MAHARANI", class: "9-A", nisn: "3093238063", status: "LULUS" },
+            { name: "ELI SITI NURMAYA", class: "9-A", nisn: "0091345869", status: "LULUS" },
+            { name: "JAHRA NUR CAHYATI", class: "9-A", nisn: "0097094941", status: "LULUS" },
+            { name: "JAHWA ZAKIAH", class: "9-A", nisn: "0096135043", status: "LULUS" },
+            { name: "LUKI", class: "9-A", nisn: "0096747230", status: "LULUS" },
+            { name: "M ABI", class: "9-A", nisn: "3081722236", status: "LULUS" },
+            { name: "M LATIP", class: "9-A", nisn: "0095679838", status: "LULUS" },
+            { name: "MAHARANI", class: "9-A", nisn: "3092473687", status: "LULUS" },
+            { name: "M SILMU MAULANA NASUHA", class: "9-A", nisn: "0104118458", status: "LULUS" },
+            { name: "M ILHAM RISKI MAULANA", class: "9-A", nisn: "0092972309", status: "LULUS" },
+            { name: "MUHAMMAD RAMDAN", class: "9-A", nisn: "3090417348", status: "LULUS" },
+            { name: "PAIJ", class: "9-A", nisn: "3077329810", status: "LULUS" },
+            { name: "RAFFA ILHAMSYAH", class: "9-A", nisn: "0098843934", status: "TIDAK LULUS" }, // Example of non-passing status
+            { name: "RAHMA MAULIDA", class: "9-A", nisn: "0099892464", status: "LULUS" },
+            { name: "SINTA ROHIMA", class: "9-A", nisn: "0098636487", status: "LULUS" },
+            { name: "SISKA NOVITA PUTRI", class: "9-A", nisn: "0094779539", status: "LULUS" },
+            { name: "SITI AISAH", class: "9-A", nisn: "0105330470", status: "LULUS" },
+            { name: "SITI HODIJAH", class: "9-A", nisn: "0106149043", status: "LULUS" },
+            { name: "SITI LATIPAH", class: "9-A", nisn: "0087854866", status: "LULUS" },
+            { name: "SITI NUR AINUN", class: "9-A", nisn: "3085069821", status: "LULUS" },
+            { name: "SITI NURNIDA ULHASANAH", class: "9-A", nisn: "0106476271", status: "LULUS" },
+            { name: "SITI SOLIHAH", class: "9-A", nisn: "0104296536", status: "LULUS" },
+            { name: "WILDA ALMIRAWATI", class: "9-A", nisn: "0107374742", status: "LULUS" },
+            { name: "YUNITA KUSMARNI", class: "9-A", nisn: "3104673232", status: "LULUS" },
+            { name: "ADINDA AL AZHAR", class: "9-B", nisn: "3099486370", status: "LULUS" },
+            { name: "AJLIN SAPITRI", class: "9-B", nisn: "3093870981", status: "LULUS" },
+            { name: "ALISA NURSIPA", class: "9-B", nisn: "3106932531", status: "LULUS" },
+            { name: "ARPI RIVALDI", class: "9-B", nisn: "3085603189", status: "LULUS" },
+            { name: "KAILA HUSNUL LATIFAH", class: "9-B", nisn: "0096571191", status: "LULUS" },
+            { name: "M ARDIANSAH RIFAI", class: "9-B", nisn: "3082319227", status: "LULUS" },
+            { name: "M. RIZKI MAULIDI", class: "9-B", nisn: "3097578558", status: "LULUS" },
+            { name: "M. ZAKI ZAELANI", class: "9-B", nisn: "3085405011", status: "LULUS" },
+            { name: "MELISA ANGGRAENI", class: "9-B", nisn: "3093199083", status: "LULUS" },
+            { name: "MELVI BILQIS SALBIAH", class: "9-B", nisn: "0104233037", status: "LULUS" },
+            { name: "MILA APRILLIA", class: "9-B", nisn: "0093095143", status: "LULUS" },
+            { name: "MUCHAMAD LUTPI", class: "9-B", nisn: "0093614734", status: "LULUS" },
+            { name: "MUHAMAD ASEP MAULANA", class: "9-B", nisn: "0094000689", status: "LULUS" },
+            { name: "MUHAMAD DIKA", class: "9-B", nisn: "0091112406", status: "LULUS" },
+            { name: "MUHAMAD DIKA PERMANA", class: "9-B", nisn: "3098307945", status: "LULUS" },
+            { name: "MUHAMAD RAPA", class: "9-B", nisn: "0094935825", status: "LULUS" },
+            { name: "MUHAMAD REZA SAPUTRA", class: "9-B", nisn: "0095516868", status: "LULUS" },
+            { name: "MUHAMAD SOPIYAN", class: "9-B", nisn: "0097947583", status: "LULUS" },
+            { name: "NASFA NAYLA KEYZA", class: "9-B", nisn: "0097861980", status: "LULUS" },
+            { name: "NELI PUTRI CAHYANI", class: "9-B", nisn: "0098427902", status: "LULUS" },
+            { name: "NENG SRI AINUN", class: "9-B", nisn: "0101146981", status: "LULUS" },
+            { name: "NURUL HUDA", class: "9-B", nisn: "0109802262", status: "LULUS" },
+            { name: "REHAN PERDIANSAH", class: "9-B", nisn: "3091533320", status: "LULUS" },
+            { name: "REPALDA ADE BARKAH", class: "9-B", nisn: "0098455407", status: "LULUS" },
+            { name: "SAEPUL BAHRI", class: "9-B", nisn: "0093495017", status: "LULUS" },
+            { name: "SALSA FEBRIAN", class: "9-B", nisn: "0109643035", status: "LULUS" },
+            { name: "SAMSI SAPAAT", class: "9-B", nisn: "0109287633", status: "LULUS" },
+            { name: "SITI NURAZIZAH", class: "9-B", nisn: "3094104403", status: "LULUS" },
+            { name: "SYAHRUL IRAWAN", class: "9-B", nisn: "0092381850", status: "LULUS" }
+        ];
+
+        // Get page elements
+        const homePage = document.getElementById('homePage');
+        const speechPage = document.getElementById('speechPage');
+        const resultsPage = document.getElementById('resultsPage');
+
+        // Get buttons
+        const nextToSpeechBtn = document.getElementById('nextToSpeechBtn');
+        const nextToResultsBtn = document.getElementById('nextToResultsBtn');
+        const checkResultBtn = document.getElementById('checkResultBtn');
+        const backToHomeBtn = document.getElementById('backToHomeBtn');
+
+        // Get result card elements
+        const nisnInput = document.getElementById('nisnInput');
+        const resultCardContainer = document.getElementById('resultCardContainer');
+        const studentName = document.getElementById('studentName');
+        const studentClass = document.getElementById('studentClass');
+        const studentStatus = document.getElementById('studentStatus');
+        const celebrationMessage = document.getElementById('celebrationMessage');
+        const motivationMessage = document.getElementById('motivationMessage');
+        const interactiveBalloon = document.getElementById('interactiveBalloon');
+
+        // Custom alert modal elements
+        const customAlertModal = document.getElementById('customAlertModal');
+        const customAlertMessage = document.getElementById('customAlertMessage');
+
+        // Function to show custom alert modal
+        function showCustomAlert(message) {
+            customAlertMessage.textContent = message;
+            customAlertModal.style.display = 'flex';
+        }
+
+        // Function to close custom alert modal
+        function closeCustomAlert() {
+            customAlertModal.style.display = 'none';
+        }
+
+        // Function to navigate between pages
+        function showPage(pageToShow) {
+            // Hide all pages first
+            homePage.classList.add('hidden-page');
+            speechPage.classList.add('hidden-page');
+            resultsPage.classList.add('hidden-page');
+
+            // Show the desired page
+            pageToShow.classList.remove('hidden-page');
+            // Reset scroll to top for new page
+            window.scrollTo(0, 0);
+        }
+
+        // Event Listeners for navigation
+        nextToSpeechBtn.addEventListener('click', () => showPage(speechPage));
+        nextToResultsBtn.addEventListener('click', () => showPage(resultsPage));
+        backToHomeBtn.addEventListener('click', () => {
+            showPage(homePage);
+            // Reset results page state when going back to home
+            nisnInput.value = '';
+            resultCardContainer.classList.add('hidden');
+            interactiveBalloon.classList.add('opacity-0');
+        });
+
+        // Function to trigger confetti animation
+        function fireConfetti() {
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, we can animate them to the bottom of the screen
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // Function to handle interactive balloon click
+        interactiveBalloon.addEventListener('click', () => {
+            // Simple animation: scale up and down
+            interactiveBalloon.style.transition = 'transform 0.2s ease-in-out';
+            interactiveBalloon.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                interactiveBalloon.style.transform = 'scale(1)';
+            }, 200);
+            // Play a subtle sound if desired, or just visual feedback
+            console.log("Balloon clicked!");
+        });
+
+        // Event Listener for checking results
+        checkResultBtn.addEventListener('click', () => {
+            const nisn = nisnInput.value.trim();
+
+            if (!nisn) {
+                showCustomAlert("Mohon masukkan NISN Anda.");
+                resultCardContainer.classList.add('hidden');
+                interactiveBalloon.classList.add('opacity-0');
+                return;
+            }
+
+            const student = studentsData.find(s => s.nisn === nisn);
+
+            if (student) {
+                studentName.textContent = student.name;
+                studentClass.textContent = `Kelas: ${student.class}`;
+                studentStatus.textContent = `Status: ${student.status}`;
+
+                // Dynamic celebration messages and animations
+                if (student.status === "LULUS") {
+                    studentStatus.classList.remove('text-red-600');
+                    studentStatus.classList.add('text-green-600');
+                    fireConfetti();
+                    interactiveBalloon.classList.remove('opacity-0'); // Show interactive element
+
+                    const successMessages = [
+                        "Selamat! Kamu berhasil meraih kelulusan dengan gemilang!",
+                        "Kerja kerasmu terbayar tuntas! Selamat atas kelulusanmu!",
+                        "Selamat! Masa depan cerah menantimu!",
+                        "Yeay! Kamu LULUS! Saatnya merayakan pencapaianmu!"
+                    ];
+                    celebrationMessage.textContent = successMessages[Math.floor(Math.random() * successMessages.length)];
+                    motivationMessage.textContent = "Langkah selanjutnya adalah petualangan baru. Teruslah bersemangat dan kejar impianmu di jenjang berikutnya!";
+
+                } else {
+                    studentStatus.classList.remove('text-green-600');
+                    studentStatus.classList.add('text-red-600');
+                    celebrationMessage.textContent = "Mohon maaf, Anda belum dinyatakan lulus. Tetap semangat dan jangan menyerah!";
+                    motivationMessage.textContent = "Setiap tantangan adalah kesempatan untuk tumbuh. Jangan biarkan ini menghentikanmu, teruslah berjuang untuk masa depan yang lebih baik!";
+                    interactiveBalloon.classList.add('opacity-0'); // Hide interactive element if not passing
+                }
+
+                resultCardContainer.classList.remove('hidden');
+            } else {
+                showCustomAlert("NISN tidak ditemukan. Mohon periksa kembali NISN Anda.");
+                resultCardContainer.classList.add('hidden');
+                interactiveBalloon.classList.add('opacity-0');
+            }
+        });
+
+        // Initialize to home page on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage(homePage);
+        });
+    </script>
+</body>
+</html>
